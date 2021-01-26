@@ -119,19 +119,11 @@ func postgresStorageTypeProvider(storageType string, storageConfig *config.Stora
 // RegisterDefaultStorageTypeProviders adds support for memstore, embedded and Postgres storage types
 // TODO(#341) remove support for Postgres and move to a separate Register...() implementation in a separate project
 func RegisterDefaultStorageTypeProviders() error {
-	err := RegisterStorageTypeProvider("memstore", memstoreStorageTypeProvider)
-	if err != nil {
+	if err := RegisterStorageTypeProvider("memstore", memstoreStorageTypeProvider); err != nil {
 		return err
 	}
 
-	err = RegisterStorageTypeProvider("embedded", embeddedStorageTypeProvider)
-	if err != nil {
-		return err
-	}
-
-	// TODO(#341) move this function invocation to a separate function within a separate project
-	err = RegisterStorageTypeProvider("postgres", postgresStorageTypeProvider)
-	if err != nil {
+	if err = RegisterStorageTypeProvider("embedded", embeddedStorageTypeProvider); err != nil {
 		return err
 	}
 
